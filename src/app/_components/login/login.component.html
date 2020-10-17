@@ -1,0 +1,42 @@
+<div id="login-wrapper">
+    <!-- <img id="logo" mat-card-image src="../../assets/logo-color.svg" alt="Photo of a Shiba Inu"> -->
+    <!-- <img id="logo" mat-card-image src="assets/Logo-Nicohanding.jpg" alt="Photo of a Shiba Inu"> -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off">
+      <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+      <mat-card class="shipping-card mat-elevation-z3">
+        <mat-card-content>
+          <h1>Iniciar Sesión</h1>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Usuario" formControlName="userName">
+                <mat-error *ngIf="loginForm.controls['userName'].hasError('required')">
+                  El campo usuario es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Contraseña" formControlName="password" type="password">
+                <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+                  El campo contraseña es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <!-- <mat-spinner></mat-spinner> -->
+          <button mat-raised-button color="primary" type="submit">
+            Iniciar Sesión
+          </button>
+          <!-- <button mat-raised-button color="secondary" [routerLink]="'/signup'" color="secondary" style="margin-top:15px;">
+            Registro
+          </button> -->
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+    

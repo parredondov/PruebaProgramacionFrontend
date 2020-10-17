@@ -1,0 +1,37 @@
+.fill-remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+  }
+  
+  .container {
+    padding: 10px;
+  }
+  
+ 
+  
+  .button {
+    /*width: 100%;*/
+  }
+
+  mat-card, .container-table, h1{
+      margin: 25px;
+  }
+
+
+  table{
+    width: 100%;
+  }
+
+  .new-user-button{
+    margin-bottom: 5px;
+  }
+
+  .cell-style{
+    min-width: 350px;
+  }
+  
+
+  .action{
+    min-width: 100px !important;
+  }

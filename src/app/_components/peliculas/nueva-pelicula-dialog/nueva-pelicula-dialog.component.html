@@ -1,0 +1,75 @@
+<div *ngIf="action == 'Nuevo'|| action == 'Editar'; else elseBlock">
+	<div class="container-create-user">
+		<h1>{{action}}</h1>
+		<div>
+			<!-- *ngIf="!post; else forminfo" novalidate-->
+			<form [formGroup]="formGroup" (ngSubmit)="onSubmitNew(formGroup.value)" class="form">
+				<mat-form-field class="form-element">
+					<input matInput placeholder="Título" formControlName="titulo">
+					<mat-error *ngIf="formGroup.controls['titulo'].hasError('required')">
+					  El campo título es <strong>requerido</strong>
+					</mat-error>
+				</mat-form-field>
+
+				<mat-form-field class="form-element">
+					<textarea matInput placeholder="Descripción" formControlName="descripcion" maxlength="255"></textarea>
+					<mat-error *ngIf="formGroup.controls['descripcion'].hasError('required')">
+					  El campo descripción es <strong>requerido</strong>
+					</mat-error>
+				</mat-form-field>
+
+				<mat-form-field class="form-element">
+					<input matInput type="number" minlength="4" maxlength="4" type="anio" placeholder="Año de publicación" formControlName="anio">
+					<mat-error *ngIf="formGroup.controls['anio'].hasError('required')">
+					  El campo de año es <strong>requerido</strong>
+					</mat-error>
+					<mat-error *ngIf="formGroup.controls['anio'].hasError('minlength') || formGroup.controls['anio'].hasError('maxlength') || formGroup.controls['anio'].hasError('valido')">
+					  Ingrese un valor válido.
+					</mat-error>
+				</mat-form-field>
+
+				<mat-form-field class="form-element">
+					<mat-chip-list #chipList aria-label="Selección de actores">
+					  <mat-chip
+						*ngFor="let actor of actores"
+						[selectable]="selectable"
+						[removable]="removable"
+						(removed)="remove(actor)">
+						{{actor}}
+						<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+					  </mat-chip>
+					  <input
+						placeholder="Seleccione un actor..."
+						#actorInput
+						[formControl]="formGroup.controls['actores']"
+						[matAutocomplete]="auto"
+						[matChipInputFor]="chipList"
+						[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+						(matChipInputTokenEnd)="add($event)">
+					</mat-chip-list>
+					<mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+					  <mat-option *ngFor="let actor of actoresFiltrados | async" [value]="actor">
+						{{actor}}
+					  </mat-option>
+					</mat-autocomplete>
+				  </mat-form-field>
+
+				<div class="button-actions">
+					<button mat-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid || showSpinner">Aceptar</button>
+				</div>
+			</form>
+			<p>{{response}}</p>
+		</div>
+	</div>
+</div>
+<ng-template #elseBlock>
+	<div class="container-delete-user">
+		<form (ngSubmit)="onSubmitDelete()" class="form">
+			<h1>{{action}}</h1>
+			<p>¿Está seguro que deseas eliminar esta película?</p>
+			<div class="button-actions">
+				<button mat-button color="primary" type="submit">Aceptar</button>
+			</div>
+		</form>
+	</div>
+</ng-template>
